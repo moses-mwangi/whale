@@ -470,7 +470,8 @@ h4 {
 }
 
 .testimonial::before {
-  content: "\201C";
+  /* content: "\201c"; */
+  content: "\201c";
   position: absolute;
   top: -5.7rem;
   left: -6.8rem;
