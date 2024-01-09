@@ -89,7 +89,6 @@ tabsContainer.addEventListener("click", function (e) {
   tabsContent.forEach((c) => c.classList.remove("operations__content--active"));
   click.classList.add("operations__tab--active");
 
-  console.log(click);
   console.log(click.dataset.tab);
 
   document
@@ -172,6 +171,29 @@ const sectionObserver = new IntersectionObserver(revealSection, {
 allSection.forEach(function (section) {
   sectionObserver.observe(section);
   section.classList.add("section--hidden");
+});
+
+//////////////////lazy image loading//////////////////////
+const allImage = document.querySelectorAll(".features__img");
+const imageLoad = function (entries) {
+  const [entry] = entries;
+
+  if (!entry.isIntersecting) return;
+  entry.target.src = entry.target.dataset.src;
+
+  entry.target.addEventListener("load", function () {
+    entry.target.classList.remove("lazy-img");
+  });
+
+  observer.unobserve(entry.target);
+};
+
+const imageObserver = new IntersectionObserver(imageLoad, {
+  root: null,
+  threshold: 0.5,
+});
+allImage.forEach((img) => {
+  imageObserver.observe(img);
 });
 
 /////////////////////////////////selecting element////////////////////
