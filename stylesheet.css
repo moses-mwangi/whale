@@ -433,12 +433,13 @@ h4 {
   bottom: 5%;
   left: 50%;
   transform: translateX(-50%);
+  /* transform: translatey(-50%); */
   display: flex;
 }
 
 .dots__dot {
   border: none;
-  background-color: #b9b9b9;
+  background-color: #3e11df;
   opacity: 0.7;
   height: 1rem;
   width: 1rem;

@@ -88,6 +88,7 @@ tabsContainer.addEventListener("click", function (e) {
   tabs.forEach((t) => t.classList.remove("operations__tab--active"));
   tabsContent.forEach((c) => c.classList.remove("operations__content--active"));
   click.classList.add("operations__tab--active");
+  // e.target.classList.add("operations__tab--active");
 
   console.log(click.dataset.tab);
 
@@ -134,12 +135,14 @@ const obsOption = { root: null, threshold: [0, 0.2] };
 const observer = new IntersectionObserver(obsCallBack, obsOption);
 observer.observe(section1);*/
 
+/////////////// sticky navbar ///////////////////////////////
+
 const header = document.querySelector(".header");
 const navHeight = nav.getBoundingClientRect().height;
 
 const stickyNav = function (entries) {
   const [entry] = entries;
-
+  console.log(entry);
   if (!entry.isIntersecting) nav.classList.add("sticky");
   else nav.classList.remove("sticky");
 };
@@ -165,7 +168,7 @@ const revealSection = function (entries, observer) {
 };
 const sectionObserver = new IntersectionObserver(revealSection, {
   root: null,
-  threshold: 0.2,
+  threshold: 0.1,
 });
 
 allSection.forEach(function (section) {
@@ -190,7 +193,7 @@ const imageLoad = function (entries) {
 
 const imageObserver = new IntersectionObserver(imageLoad, {
   root: null,
-  threshold: 0.2,
+  threshold: 0.1,
 });
 allImage.forEach((img) => {
   imageObserver.observe(img);
@@ -203,17 +206,69 @@ const slider = document.querySelector(".slider");
 const btnLeft = document.querySelector(".slider__btn--left");
 const btnRight = document.querySelector(".slider__btn--right");
 
-slider.style.transform = "scale(0.5)";
-slider.style.overflow = "visible";
-
-slides.forEach((s, i) => (s.style.transform = `translateX(${100 * i}%)`));
+const dotsContainer = document.querySelector(".dots");
+const dot = document.querySelectorAll(".dots__dot");
+const maxSlide = slides.length;
 
 let curSlide = 0;
-btnRight.addEventListener("click", function () {
-  curSlide++;
+
+// slider.style.transform = "scale(0.5)";
+// slider.style.overflow = "visible";
+const activedot = function (slide) {
+  dot.forEach((dot) => dot.classList.remove("dots__dot--active"));
+  document
+    .querySelector(`.dots__dot[data-slide="${slide}"]`)
+    .classList.add("dots__dot--active");
+};
+activedot(0);
+
+const goToSlides = function (slide) {
   slides.forEach(
-    (s, i) => (s.style.transform = `translateX(${100 * (i - curSlide)}%)`)
+    (s, i) => (s.style.transform = `translateX(${100 * (i - slide)}%)`)
   );
+};
+goToSlides(0);
+
+const nextSlide = function () {
+  if (curSlide === maxSlide - 1) {
+    curSlide = 0;
+  } else {
+    curSlide++;
+  }
+  goToSlides(curSlide);
+  activedot(curSlide);
+};
+
+const previousSlide = function () {
+  if (curSlide === 0) {
+    curSlide === maxSlide - 1;
+  } else {
+    curSlide--;
+  }
+  goToSlides(curSlide);
+  activedot(curSlide);
+};
+btnRight.addEventListener("click", nextSlide);
+btnLeft.addEventListener("click", previousSlide);
+
+// document.addEventListener("keydown", function (e) {
+//   if (e.key === ArrowRight) previousSlide;
+//   console.log(e);
+// });
+
+document.addEventListener("keydown", function (e) {
+  console.log(e);
+  if (e.key === "ArrowLeft") previousSlide();
+  e.key === "ArrowRight" && nextSlide();
+});
+
+////////////////////// dots ////////////////////////
+dotsContainer.addEventListener("click", function (e) {
+  if (e.target.classList.contains("dots__dot")) {
+    const slide = e.target.dataset.slide;
+    goToSlides(slide);
+    activedot(slide);
+  }
 });
 
 /////////////////////////////////selecting element////////////////////
