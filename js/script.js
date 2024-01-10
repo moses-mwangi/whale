@@ -190,10 +190,30 @@ const imageLoad = function (entries) {
 
 const imageObserver = new IntersectionObserver(imageLoad, {
   root: null,
-  threshold: 0.5,
+  threshold: 0.2,
 });
 allImage.forEach((img) => {
   imageObserver.observe(img);
+});
+
+////////////////////////slider///////////////////////
+
+const slides = document.querySelectorAll(".slide");
+const slider = document.querySelector(".slider");
+const btnLeft = document.querySelector(".slider__btn--left");
+const btnRight = document.querySelector(".slider__btn--right");
+
+slider.style.transform = "scale(0.5)";
+slider.style.overflow = "visible";
+
+slides.forEach((s, i) => (s.style.transform = `translateX(${100 * i}%)`));
+
+let curSlide = 0;
+btnRight.addEventListener("click", function () {
+  curSlide++;
+  slides.forEach(
+    (s, i) => (s.style.transform = `translateX(${100 * (i - curSlide)}%)`)
+  );
 });
 
 /////////////////////////////////selecting element////////////////////
@@ -210,7 +230,7 @@ const allb = document.getElementsByTagName("p");
 const ty = document.getElementsByClassName("btn");
 console.log(allb);
 */
-//////////////////////////////// ceate and inserting element /////////////////////
+//////////////////////////////// create and inserting element /////////////////////
 /*
 // const para = document.createElement("p");
 // para.classList.add("cookie-message");
