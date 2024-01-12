@@ -17,6 +17,7 @@ const tabs = document.querySelectorAll(".operations__tab");
 const tabsContainer = document.querySelector(".operations__tab-container");
 const tabsContent = document.querySelectorAll(".operations__content");
 const nav = document.querySelector("nav");
+const navLink = document.querySelector(".nav__link");
 
 const openModal = function (e) {
   e.preventDefault();
@@ -166,6 +167,7 @@ const revealSection = function (entries, observer) {
 
   observer.unobserve(entry.target);
 };
+
 const sectionObserver = new IntersectionObserver(revealSection, {
   root: null,
   threshold: 0.1,
@@ -193,7 +195,7 @@ const imageLoad = function (entries) {
 
 const imageObserver = new IntersectionObserver(imageLoad, {
   root: null,
-  threshold: 0.1,
+  threshold: 0,
 });
 allImage.forEach((img) => {
   imageObserver.observe(img);
