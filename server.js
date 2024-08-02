@@ -15,7 +15,7 @@ const db =
 const DB =
   "mongodb+srv://mosesmwangime:9SPqAj4JOaXBxDrI@cluster0.sqjq7km.mongodb.net/natours?retryWrites=true&w=majority&appName=Cluster0";
 
-mongoose.connect(DB).then((con) => {
+mongoose.connect(db).then((con) => {
   console.log("Database connection successfull");
 });
 
