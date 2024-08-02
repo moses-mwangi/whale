@@ -33,9 +33,6 @@ const orderSchema = new Schema({
   paymentIntentId: Number,
 });
 
-// const Order = mongoose.model("Order", orderSchema);
-
-// export default Order;
 const Order = mongoose.model("Order", orderSchema);
 
 module.exports = Order;

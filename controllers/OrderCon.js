@@ -1,4 +1,3 @@
-const Tour = require("../model/tourModel");
 const Order = require("../model/order");
 
 exports.getAllOrder = async (req, res, next) => {
