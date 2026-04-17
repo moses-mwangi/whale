@@ -1,0 +1,356 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        width: 360px;
+        background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+        color: white;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      .container {
+        padding: 20px;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .logo {
+        font-size: 32px;
+        margin-bottom: 8px;
+      }
+
+      h1 {
+        font-size: 20px;
+        font-weight: 400;
+        letter-spacing: -0.5px;
+      }
+
+      .subtitle {
+        font-size: 12px;
+        opacity: 0.5;
+        margin-top: 4px;
+      }
+
+      /* Main Toggle */
+      .main-toggle {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 16px;
+        padding: 16px;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .toggle-label {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .toggle-label span:first-child {
+        font-size: 24px;
+      }
+
+      .toggle-text {
+        font-weight: 500;
+      }
+
+      .toggle-desc {
+        font-size: 11px;
+        opacity: 0.5;
+        margin-top: 2px;
+      }
+
+      /* Toggle Switch */
+      .switch {
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 26px;
+      }
+
+      .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(255, 255, 255, 0.2);
+        transition: 0.3s;
+        border-radius: 26px;
+      }
+
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 20px;
+        width: 20px;
+        left: 3px;
+        bottom: 3px;
+        background-color: white;
+        transition: 0.3s;
+        border-radius: 50%;
+      }
+
+      input:checked + .slider {
+        background-color: #d46a4a;
+      }
+
+      input:checked + .slider:before {
+        transform: translateX(24px);
+      }
+
+      /* Settings Sections */
+      .section {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 16px;
+        padding: 16px;
+        margin-bottom: 12px;
+      }
+
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+        cursor: pointer;
+      }
+
+      .section-title {
+        font-weight: 500;
+        font-size: 14px;
+      }
+
+      .section-desc {
+        font-size: 11px;
+        opacity: 0.4;
+        margin-top: 4px;
+      }
+
+      .section-content {
+        margin-top: 12px;
+        padding-top: 12px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .setting-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+      }
+
+      .setting-label {
+        font-size: 13px;
+      }
+
+      .setting-value {
+        font-size: 13px;
+        opacity: 0.7;
+      }
+
+      select,
+      input {
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        padding: 6px 12px;
+        border-radius: 8px;
+        color: white;
+        font-size: 12px;
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-top: 20px;
+      }
+
+      .stat-card {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 12px;
+        padding: 12px;
+        text-align: center;
+      }
+
+      .stat-value {
+        font-size: 24px;
+        font-weight: 600;
+        color: #d46a4a;
+      }
+
+      .stat-label {
+        font-size: 10px;
+        opacity: 0.5;
+        margin-top: 4px;
+      }
+
+      .footer {
+        text-align: center;
+        font-size: 10px;
+        opacity: 0.3;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <div class="logo">🌿</div>
+        <h1>Quiet Interface</h1>
+        <div class="subtitle">breathe between scrolls</div>
+      </div>
+
+      <div class="main-toggle">
+        <div class="toggle-label">
+          <span>🌙</span>
+          <div>
+            <div class="toggle-text">Quiet Mode</div>
+            <div class="toggle-desc">Replace noise with ambient presence</div>
+          </div>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="enabledToggle" />
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div id="settingsContainer">
+        <div class="section">
+          <div class="section-header" data-section="scroll">
+            <div>
+              <div class="section-title">📜 Scroll Pauses</div>
+              <div class="section-desc">
+                Replace infinite scroll with intentional breaks
+              </div>
+            </div>
+            <span>▼</span>
+          </div>
+          <div class="section-content" id="scrollSection">
+            <div class="setting-item">
+              <span class="setting-label">Block infinite scroll</span>
+              <input type="checkbox" id="scrollBlockToggle" />
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-header" data-section="notifications">
+            <div>
+              <div class="section-title">🔔 Notification Whisper</div>
+              <div class="section-desc">
+                Convert notifications into ambient sounds
+              </div>
+            </div>
+            <span>▼</span>
+          </div>
+          <div
+            class="section-content"
+            id="notificationsSection"
+            style="display: none"
+          >
+            <div class="setting-item">
+              <span class="setting-label">Replace notifications</span>
+              <input type="checkbox" id="notificationBlockToggle" />
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-header" data-section="breathing">
+            <div>
+              <div class="section-title">🌬️ Breathing Spaces</div>
+              <div class="section-desc">Gentle reminders to pause</div>
+            </div>
+            <span>▼</span>
+          </div>
+          <div
+            class="section-content"
+            id="breathingSection"
+            style="display: none"
+          >
+            <div class="setting-item">
+              <span class="setting-label">Enable reminders</span>
+              <input type="checkbox" id="breathingToggle" />
+            </div>
+            <div class="setting-item">
+              <span class="setting-label">Reminder interval</span>
+              <select id="breathingInterval">
+                <option value="5">5 minutes</option>
+                <option value="10">10 minutes</option>
+                <option value="15" selected>15 minutes</option>
+                <option value="30">30 minutes</option>
+                <option value="60">60 minutes</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-header" data-section="sounds">
+            <div>
+              <div class="section-title">🎵 Ambient Sounds</div>
+              <div class="section-desc">Choose your notification sound</div>
+            </div>
+            <span>▼</span>
+          </div>
+          <div class="section-content" id="soundsSection" style="display: none">
+            <div class="setting-item">
+              <span class="setting-label">Sound</span>
+              <select id="selectedSound">
+                <option value="gentle-chime">Gentle Chime</option>
+                <option value="water-drop">Water Drop</option>
+                <option value="soft-bell">Soft Bell</option>
+              </select>
+            </div>
+            <div class="setting-item">
+              <span class="setting-label">Volume</span>
+              <input
+                type="range"
+                id="soundVolume"
+                min="0"
+                max="100"
+                step="5"
+                value="30"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat-card">
+          <div class="stat-value" id="todayTime">0</div>
+          <div class="stat-label">minutes today</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="pausesCount">0</div>
+          <div class="stat-label">intentional pauses</div>
+        </div>
+      </div>
+
+      <div class="footer">Quiet Interface — designed for digital calm</div>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
